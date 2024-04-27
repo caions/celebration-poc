@@ -17,9 +17,4 @@ messaging.onBackgroundMessage((message) => {
   console.log('chegou uma background message aaa')
   console.log(message.notification.title)
   console.log(message.notification.body)
-  // Exibir uma notificação usando o método showNotification()
-  // self.registration.showNotification(message.notification.title, {
-  //   body: message.notification.body,
-  //   // Você pode adicionar outras propriedades de configuração da notificação aqui
-  // });
 });
