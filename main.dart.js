@@ -32589,7 +32589,7 @@ Ga(a){var s=0,r=A.Y(t.H),q,p,o
 var $async$nb=A.Z(function(b,c){if(b===1)return A.V(c,r)
 while(true)switch(s){case 0:q=t.N
 p=A.aq(["token",a],q,q)
-o=A.uo("http://localhost:3000/notification-token")
+o=A.uo("https://t3nk0vbk6g.execute-api.us-east-1.amazonaws.com/notification-token")
 q=A.aq(["Content-Type","application/json"],q,q)
 s=2
 return A.U(A.apl(o,B.aA.CT(p,null),q),$async$nb)
