@@ -14,7 +14,7 @@ const RESOURCES = {
   "canvaskit/profiling/canvaskit.js": "38164e5a72bdad0faa4ce740c9b8e564",
   "canvaskit/profiling/canvaskit.wasm": "95a45378b69e77af5ed2bc72b2209b94",
   "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-  "celebration-poc/firebase-messaging-sw.js": "09ee874d394a92d132c7ab58548f7df9",
+  "firebase-messaging-sw.js": "09ee874d394a92d132c7ab58548f7df9",
   "flutter.js": "f85e6fb278b0fd20c349186fb46ae36d",
   "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
   "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
