@@ -12,18 +12,6 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((message) => {
-  console.log('Mensagem recebida em background:', message);
-
-  const notificationTitle = message.notification.title;
-  const notificationOptions = {
-    body: message.notification.body,
-    // icon: '/firebase-logo.png'
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
-
 self.addEventListener('notificationclick', (event) => {
   const clickedNotification = event.notification;
   clickedNotification.close();
