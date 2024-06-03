@@ -17,8 +17,9 @@ messaging.onBackgroundMessage((message) => {
 
   const notificationTitle = message.notification.title;
   const notificationOptions = {
-    body: 'mensagem do service worker',
+    body: message.notification.body, // Usar o corpo da mensagem recebida
     // icon: '/firebase-logo.png'
+    data: { url: '/' } // Adiciona a URL como parte dos dados da notificação
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
@@ -28,7 +29,7 @@ self.addEventListener('notificationclick', (event) => {
   const clickedNotification = event.notification;
   clickedNotification.close();
 
-  const url = '/';
+  const url = clickedNotification.data.url; // Pega a URL dos dados da notificação
 
   event.waitUntil(
     clients.matchAll({
