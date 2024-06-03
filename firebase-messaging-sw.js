@@ -13,41 +13,7 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((message) => {
-  console.log('Mensagem recebida em background:', message);
-
-  const notificationTitle = message.notification.title;
-  const notificationOptions = {
-    body: message.notification.body, // Usar o corpo da mensagem recebida
-    // icon: '/firebase-logo.png'
-    data: { url: '/' } // Adiciona a URL como parte dos dados da notificação
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
-
-self.addEventListener('notificationclick', (event) => {
-  const clickedNotification = event.notification;
-  clickedNotification.close();
-
-  const url = clickedNotification.data.url; // Pega a URL dos dados da notificação
-
-  event.waitUntil(
-    clients.matchAll({
-      type: 'window'
-    })
-      .then((windowClients) => {
-        // Verificar se a aplicação está aberta e focada
-        for (let i = 0; i < windowClients.length; i++) {
-          const client = windowClients[i];
-          if (client.url === url && 'focus' in client) {
-            return client.focus();
-          }
-        }
-
-        // Se a aplicação não estiver aberta, abri-la em uma nova aba
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
-      })
-  );
+  console.log('chegou uma background mensagem')
+  console.log(message.notification.title)
+  console.log(message.notification.body)
 });
