@@ -11,7 +11,29 @@ firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
-messaging.addEventListener('notificationclick', function (event) {
+
+self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  clients.openWindow("/");
+
+  const url = '/'; // URL que você deseja abrir ao clicar na notificação
+
+  event.waitUntil(
+    clients.matchAll({
+      type: 'window'
+    })
+      .then((windowClients) => {
+        // Verificar se a aplicação está aberta e focada
+        for (let i = 0; i < windowClients.length; i++) {
+          const client = windowClients[i];
+          if (client.url === url && 'focus' in client) {
+            return client.focus();
+          }
+        }
+
+        // Se a aplicação não estiver aberta, abri-la em uma nova aba
+        if (clients.openWindow) {
+          return clients.openWindow(url);
+        }
+      })
+  );
 });
