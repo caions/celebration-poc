@@ -8605,7 +8605,7 @@ M5:function M5(){},
 a9W:function a9W(a){this.a=a},
 a9V:function a9V(a){this.a=a},
 a9U:function a9U(a){this.a=a},
-kJ(){var s=A.aKR("http://localhost:3000"),r=new A.a3u($,new A.Md(A.a([B.FX],t.i6)),$,new A.a0W(A.aU9()),!1)
+kJ(){var s=A.aKR("https://t3nk0vbk6g.execute-api.us-east-1.amazonaws.com"),r=new A.a3u($,new A.Md(A.a([B.FX],t.i6)),$,new A.a0W(A.aU9()),!1)
 r.QA$=s
 r.QC$=new A.a1e(A.aU(t.Gf))
 s=new A.a0A(r)
