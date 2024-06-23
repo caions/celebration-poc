@@ -12,28 +12,25 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-self.addEventListener('notificationclick', (event) => {
+messaging.onBackgroundMessage((payload) => {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    data: {
+      url: '/' // URL para onde o usuário será redirecionado ao clicar na notificação
+    }
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener('notificationclick', function (event) {
+  console.log('[firebase-messaging-sw.js] Notification click Received.');
+
   event.notification.close();
 
-  const url = '/'; // URL que você deseja abrir ao clicar na notificação
-
   event.waitUntil(
-    clients.matchAll({
-      type: 'window'
-    })
-      .then((windowClients) => {
-        // Verificar se a aplicação está aberta e focada
-        for (let i = 0; i < windowClients.length; i++) {
-          const client = windowClients[i];
-          if (client.url === url && 'focus' in client) {
-            return client.focus();
-          }
-        }
-
-        // Se a aplicação não estiver aberta, abri-la em uma nova aba
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
-      })
+    clients.openWindow(event.notification.data.url)
   );
 });
