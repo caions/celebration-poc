@@ -25,12 +25,30 @@ messaging.onBackgroundMessage((payload) => {
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-self.addEventListener('notificationclick', function (event) {
-  console.log('[firebase-messaging-sw.js] Notification click Received.');
 
-  event.notification.close();
+self.addEventListener('notificationclick', (event) => {
+  const clickedNotification = event.notification;
+  clickedNotification.close();
+
+  const url = '/';
 
   event.waitUntil(
-    clients.openWindow(event.notification.data.url)
+    clients.matchAll({
+      type: 'window'
+    })
+      .then((windowClients) => {
+        // Verificar se a aplicação está aberta e focada
+        for (let i = 0; i < windowClients.length; i++) {
+          const client = windowClients[i];
+          if (client.url === url && 'focus' in client) {
+            return client.focus();
+          }
+        }
+
+        // Se a aplicação não estiver aberta, abri-la em uma nova aba
+        if (clients.openWindow) {
+          return clients.openWindow(url);
+        }
+      })
   );
 });
