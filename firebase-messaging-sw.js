@@ -10,45 +10,16 @@ firebase.initializeApp({
   appId: '1:980765464706:web:f18427882e5a1b38e07c9b',
 });
 
+
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    data: {
-      url: '/' // URL para onde o usuário será redirecionado ao clicar na notificação
-    }
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
-
-
-self.addEventListener('notificationclick', (event) => {
-  const clickedNotification = event.notification;
-  clickedNotification.close();
-
-  const url = '/';
-
-  event.waitUntil(
-    clients.matchAll({
-      type: 'window'
-    })
-      .then((windowClients) => {
-        // Verificar se a aplicação está aberta e focada
-        for (let i = 0; i < windowClients.length; i++) {
-          const client = windowClients[i];
-          if (client.url === url && 'focus' in client) {
-            return client.focus();
-          }
-        }
-
-        // Se a aplicação não estiver aberta, abri-la em uma nova aba
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
-      })
-  );
+messaging.onBackgroundMessage((message) => {
+  console.log('chegou uma background message aaa')
+  console.log(message.notification.title)
+  console.log(message.notification.body)
+  // Exibir uma notificação usando o método showNotification()
+  // self.registration.showNotification(message.notification.title, {
+  //   body: message.notification.body,
+  //   // Você pode adicionar outras propriedades de configuração da notificação aqui
+  // });
 });
